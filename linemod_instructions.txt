@@ -1,0 +1,31 @@
+Step 1: Get roscore running with this command
+roslaunch openni2_launch openni2.launch
+rosrun dynamic_reconfigure dynparam set /camera/driver depth_registration True
+
+Step 2: rosrun object_recognition_core detection -c  `rospack find object_recognition_linemod`/conf/detection.ros.ork
+
+Step 3: rosrun rviz rviz
+
+Detection/Training:
+rosrun object_recognition_core detection -c  `rospack find object_recognition_linemod`/conf/detection.ros.ork
+
+rosrun object_recognition_core training -c `rospack find object_recognition_linemod`/conf/training.ork
+
+
+Adding Objects:
+rosrun object_recognition_core object_add.py -n "megablok " -d "A normal megablock" --commit
+
+rosrun object_recognition_core mesh_add.py 249e4ab410384b3d0917049b0f000e1a "/home/mitch/Desktop/megabloks2x4_blender.stl" --commit
+
+rosrun object_recognition_core object_delete.py OBJECT_ID --commit
+
+http://localhost:5984/or_web_ui/_design/viewer/meshes.html
+
+Running Object Detection:
+rosrun rqt_reconfigure rqt_reconfigure 
+
+roslaunch openni2_launch openni2.launch 
+
+rosrun rviz rviz
+
+rosrun dynamic_reconfigure dynparam set /camera/driver depth_registration True
